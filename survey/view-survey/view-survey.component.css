@@ -1,0 +1,50 @@
+.encuesta {
+    background: url('/assets/TrazoBancolombia1.png') center/cover no-repeat;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Opacidad del contenedor */
+    background-color: white;
+    /* Color de fondo del contenido */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    /* Sombra con transparencia */
+}
+
+.encuesta img {
+    opacity: 0.5;
+}
+
+.encuesta .title {
+    margin-bottom: 3%;
+}
+
+.encuesta .preguntas {
+    padding: 2%;
+}
+
+.boton button {
+    margin-top: 3%;
+}
+
+.survey_descripcion {
+    margin: 20px 0;
+}
+
+.answer_options {
+    margin: 15px 0px;
+}
+
+.answer_text {
+    margin: 35px 0 25px 0px;
+}
+
+.bc-radio-group.bc_surve_range {
+    display: flex;
+}
+
+.bc-radio {
+    margin-right: 10px;
+}
