@@ -1,0 +1,20 @@
+.maintable {
+  padding: 10px;
+}
+.mat-tab-group.mat-background-primary .mat-tab-header,
+.mat-tab-group.mat-background-primary .mat-tab-header-pagination,
+.mat-tab-group.mat-background-primary .mat-tab-links,
+.mat-tab-nav-bar.mat-background-primary .mat-tab-header,
+.mat-tab-nav-bar.mat-background-primary .mat-tab-header-pagination,
+.mat-tab-nav-bar.mat-background-primary .mat-tab-links {
+  background-color: #2c2a29;
+}
+
+.mat-tab-group.mat-background-accent .mat-tab-header,
+.mat-tab-group.mat-background-accent .mat-tab-header-pagination,
+.mat-tab-group.mat-background-accent .mat-tab-links,
+.mat-tab-nav-bar.mat-background-accent .mat-tab-header,
+.mat-tab-nav-bar.mat-background-accent .mat-tab-header-pagination,
+.mat-tab-nav-bar.mat-background-accent .mat-tab-links {
+  background-color: #ffffff;
+}
