@@ -1,0 +1,68 @@
+<div class="container">
+    <ng-container>
+        <div bc-card typeCard="image" class="encuesta bc-flex bc-justify-content-center bc-align-items-center">
+
+            <div bc-card typeCard="image">
+                <div class="bc-card-content">
+                    <div class="bc-flex bc-justify-content-space-between">
+                        <h4 class="title bc-cibsans-font-style-12-bold">{{data.nombreEncuesta}}</h4>
+                    </div>
+                    <div>
+                        <p>{{dataSourceSurvey?.descripcionEncuesta}}</p>
+                    </div>
+                    <div class="bc-card-text preguntas" *ngFor="let question of dataSourceSurveyQuestion">
+                        <div>
+                            <p>{{question.numeroPregunta}}. {{question.nombrePregunta}}</p>
+                        </div>
+                        <div *ngIf="question.answers && question.answers.length > 0">
+                            <div *ngFor="let answer of question.answers">
+                                <div *ngIf="question.tipoPregunta === 1">
+                                    <bc-radio-group [formControl]=" " name=" ">
+                                        <bc-radio value="answer.opcionPregunta"
+                                            [enabled]="false">{{answer.opcionPregunta}}</bc-radio>
+                                    </bc-radio-group>
+                                </div>
+                                <div *ngIf="question.tipoPregunta === 2">
+                                    <bc-checkbox class="col-6" label="{{answer.opcionPregunta}}"
+                                        [enabled]="false"></bc-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                *ngIf="(!question.answers || question.answers.length === 0) && question.tipoPregunta === 3">
+                                <input bc-input disabled type="text" id="10" aria-label="custom-aria-label"
+                                    placeholder="Escriba acá su respuesta." value="" required />
+                            </div>
+                            <div
+                                *ngIf="(!question.answers || question.answers.length === 0) && question.tipoPregunta === 4">
+                                <article>
+                                    <bc-radio-group>
+                                        <div class="bc-radio-group bc_surve_range answer_options">
+                                            <bc-radio [enabled]="false" value="1">1</bc-radio>
+                                            <bc-radio [enabled]="false" value="2">2</bc-radio>
+                                            <bc-radio [enabled]="false" value="3">3</bc-radio>
+                                            <bc-radio [enabled]="false" value="4">4</bc-radio>
+                                            <bc-radio [enabled]="false" value="5">5</bc-radio>
+                                        </div>
+
+                                    </bc-radio-group>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bc-flex bc-direction-row-reverse">
+                        <p>Encuesta creada el: {{data.fechaCreacion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+
+    <div class="row align-items-start">
+        <div class="boton">
+            <button class="bc-button-small bc-button-primary" (click)="onNoClick()" id="btnCancel">Volver</button>
+        </div>
+    </div>
+</div>
