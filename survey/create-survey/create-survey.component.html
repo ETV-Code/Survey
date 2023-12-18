@@ -1,0 +1,190 @@
+<div class="bc_create_survey_container">
+
+  <section *ngIf="!gettingUpdateStatus">
+    <h3>Crear encuesta</h3>
+    <p class="bc-cibsans-font-style-5-extralight">Ingresa los datos para crear una nueva encuesta.</p>
+  </section>
+  <section *ngIf="gettingUpdateStatus">
+    <h3>Editar encuesta</h3>
+    <p class="bc-cibsans-font-style-5-extralight">Modifica o añade la informacion que requieras.</p>
+  </section>
+
+  <form [formGroup]="surveyForm">
+
+    <section class="bc_survey_grid">
+
+      <article>
+        <bc-form-field>
+          <input bc-input type="text" id="nombreEncuesta" formControlName="nombreEncuesta" maxlength="150" />
+          <label for="nombreEncuesta">Nombre encuesta</label>
+          <span *ngIf="invalidFieldHandler('nombreEncuesta')">El campo es requerido</span>
+        </bc-form-field>
+      </article>
+
+      <article>
+        <bc-form-field>
+          <input bc-input type="text" id="descripcionEncuesta" formControlName="descripcionEncuesta" maxlength="150"/>
+          <label for="descripcionEncuesta">Descripcion encuesta</label>
+          <span *ngIf="invalidFieldHandler('descripcionEncuesta')">El campo es requerido</span>
+        </bc-form-field>
+      </article>
+
+      <article *ngIf="!gettingUpdateStatus">
+        <div class="bc_input_question_type">
+          <bc-input-select class="search_container_select" componentId="bc-select2" [formatType]="'simple'"
+          [values]="typesSurvey" label="Título" (valueOutput)="showSelectedValueSurveyType($event)"
+          label="Tipo encuesta" formControlName="tipoEncuesta">
+          </bc-input-select>
+        </div>
+      </article>
+
+      <article *ngIf="gettingUpdateStatus">
+
+        <h5> Estado encuesta </h5>
+
+        <bc-radio-group formControlName="estado" name="estado">
+          <div class="bc-flex bc-direction-xs-row ">
+            <bc-radio value="true" class="bc_survey_status">Activo</bc-radio>
+            <bc-radio value="false">Inactivo</bc-radio>
+          </div>
+        </bc-radio-group>
+
+      </article>
+
+    </section>
+
+    <section class="bc-flex bc-direction-xs-row bc-justify-content-space-between bc_survey_addQuestion">
+
+      <div>
+        <h4>
+          Preguntas
+        </h4>
+      </div>
+      <div>
+        <button test_data="add_question_button" class="bc-button bc-button-primary bc-button-small"
+          (click)="addQuestion()"
+        >
+          <bc-icon>plus</bc-icon>
+          <span>Agregar pregunta</span>
+        </button>
+      </div>
+
+    </section>
+
+
+    <ng-container formArrayName="preguntas">
+      <ng-container *ngFor="let question of preguntasArray.controls; let indexPregunta = index"
+        [formGroupName]="indexPregunta">
+
+        <div bc-card class="bc_question_wrapper bc_question_card_container">
+          <div class="bc-card-body">
+
+            <section class="bc-flex bc-direction-xs-row bc-justify-content-space-between">
+
+              <p>
+                Pregunta # {{indexPregunta + 1}}
+              </p>
+
+              <div>
+                <button bc-button typeButton="secondary" sizeButton="small" (click)="deleteQuestion(indexPregunta)">
+                  <bc-icon>error</bc-icon>
+                  <span>Eliminar pregunta</span>
+                </button>
+              </div>
+
+            </section>
+
+            <section class="bc-flex bc_question_section">
+
+              <div class="bc_input_question">
+                <bc-form-field class="bc_input_question">
+                  <input bc-input type="text" id="nombrePregunta" formControlName="nombrePregunta" />
+                  <label for="nombrePregunta">Titulo de la pregunta</label>
+                  <span *ngIf="surveyForm.get('nombreEncuesta').hasError('required') &&
+                     surveyForm.get('nombreEncuesta').touched">
+                    El campo es requerido
+                  </span>
+                </bc-form-field>
+              </div>
+
+              <div class="bc_input_question_type">
+                <bc-input-select [componentId]="'bc-select2-' + indexPregunta" [values]="typesQuestions" label="Tipo"
+                  [formatType]="'simple'" (valueOutput)="showSelectedValue($event )"
+                  formControlName="tipoPregunta"></bc-input-select>
+              </div>
+
+            </section>
+
+            <ng-container *ngIf="question.get('tipoPregunta').value === 1 || question.get('tipoPregunta').value === 2 ">
+
+              <section class="bc-flex bc-direction-xs-row bc-justify-content-space-between bc_survey_addQuestion">
+
+                <div>
+                  <h4>
+                    Opciones
+                  </h4>
+                </div>
+                <div>
+                  <button class="bc-button bc-button-secondary bc-button-small" (click)="addOption(indexPregunta)">
+                    <bc-icon>plus</bc-icon>
+                    <span>Agregar opcion</span>
+                  </button>
+                </div>
+
+              </section>
+
+
+              <section class="bc-flex bc-direction-row bc_option_wrap">
+
+                <ng-container formArrayName="opcionPreguntas">
+                  <ng-container *ngFor="let opcion of question.get('opcionPreguntas').controls; let indexOpcion = index"
+                    [formGroupName]="indexOpcion">
+
+                    <div class=" bc-flex bc-direction-row bc_input_option">
+                      <bc-form-field>
+                        <input bc-input type="text" id="opcionPregunta" formControlName="opcionPregunta" />
+                        <label for="opcionPregunta">opcion # {{ indexOpcion + 1}}</label>
+                        <span *ngIf="surveyForm.get('nombreEncuesta').hasError('required') &&
+                        surveyForm.get('nombreEncuesta').touched">
+                          El campo es requerido
+                        </span>
+                      </bc-form-field>
+                      <div *ngIf="indexOpcion > 0">
+                        <button class="bc-button-icon" (click)="deleteOption(indexPregunta,indexOpcion)">
+                          <i class="bc-icon bc-sm" bc-tooltip bcTooltipPosition="bottom"
+                            bcTooltipText="Eliminar">error</i>
+                        </button>
+                      </div>
+                    </div>
+
+                  </ng-container>
+                </ng-container>
+
+              </section>
+
+            </ng-container>
+
+          </div>
+        </div>
+
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!gettingUpdateStatus">
+      <button (click)="createSurvey()" type="submit" [disabled]="surveyForm.invalid"
+        class="bc-button bc-button-primary bc-button-small ">
+        <bc-icon>ok</bc-icon>
+        <span>Crear</span>
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="gettingUpdateStatus">
+      <button (click)="updateSurvey()" type="submit" [disabled]="surveyForm.invalid"
+        class="bc-button bc-button-primary bc-button-small ">
+        <bc-icon>ok</bc-icon>
+        <span>Editar</span>
+      </button>
+    </ng-container>
+
+  </form>
+</div>
