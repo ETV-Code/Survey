@@ -1,0 +1,38 @@
+.survey-alert-survey-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.survey-alert-survey-list-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #D9DADD;
+    padding: 10px;
+}
+
+.survey-alert-survey-list-card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.survey-alert-survey-list-card-content p {
+    margin: 0;
+}
+
+.survey-alert-survey-list-card-content-title {
+    padding-bottom: 5px;
+}
+
+.survey-alert-survey-list-card-button {
+    padding: 0;
+    margin: 0;
+}
+
+.survey-alert-survey-list-card-button button {
+    width: auto;
+    padding: 10px;
+}
