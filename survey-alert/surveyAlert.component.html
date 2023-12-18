@@ -1,0 +1,31 @@
+<app-alert data-testid="survey-alert-dialog">
+    <div class="survey-alert-content">
+        <p>Este mensaje es para recordarte que tienes <b>{{data.surveys.length}} </b>
+            <b *ngIf="data.surveys.length===1">encuesta</b> <b *ngIf="data.surveys.length>1">encuestas</b> sin
+            responder,
+            acerca de los cursos que ya finalizaste
+        </p>
+        <p>Esta ventana es restrictiva, por lo que continuará saliendo hasta que completes las encuestas</p>
+    </div>
+    <div class="survey-alert-survey-list">
+        <div bc-card class="bc-card-select survey-alert-survey-list-card" *ngFor="let survey of data.surveys"  data-testid="card-pending-survey">
+            <div class="survey-alert-survey-list-card-content">
+                <div class="bc-card-icon">
+                    <div class="bc-card-icon-round bc-card-icon-round-primary">
+                        <em class="bc-icon" aria-hidden="true">edit-document</em>
+                    </div>
+                </div>
+                <div class="bc-card-body bc-align-left">
+                    <h6 class="survey-alert-survey-list-card-content-title" data-testid="card-pending-survey-title">{{survey.encuesta}}</h6>
+                    <p class="survey-alert-survey-list-card-content-subtitle">{{survey.nombreOferta}}</p>
+                </div>
+            </div>
+            <div class="survey-alert-survey-list-card-button">
+                <button bc-button typeButton="primary"
+                    (click)="goToSurvey(survey.idEncuesta, survey.idSurveyAssignment)">
+                    <em class="bc-icon" aria-hidden="true">arrow2-right</em>
+                </button>
+            </div>
+        </div>
+    </div>
+</app-alert>
