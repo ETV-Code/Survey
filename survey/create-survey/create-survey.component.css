@@ -1,0 +1,45 @@
+.bc_create_survey_container {
+  margin: 15px 0 15px 12px;
+  width: 98%;
+}
+
+.bc_survey_status {
+  margin-right: 10px;
+}
+
+.bc_survey_addQuestion {
+  margin: 35px 0;
+}
+.bc_question_card_container {
+  box-shadow: 0 6px 12px 0px #d9dadd;
+}
+.bc_input_question {
+  width: 500px;
+  margin-right: 173px;
+}
+.bc_input_option {
+  width: 350px;
+  margin-right: 17px;
+}
+.bc_option_wrap {
+  flex-wrap: wrap;
+}
+
+.bc_input_question_type {
+  padding-top: 20px;
+}
+
+.bc_question_wrapper {
+  margin: 15px 0 15px 12px;
+  width: 98%;
+}
+
+.bc_question_section {
+  margin-top: 35px;
+}
+
+.bc_survey_grid{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 50px;
+}
