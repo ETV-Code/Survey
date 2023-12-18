@@ -1,0 +1,34 @@
+.bc_survey_wrapper {
+  margin: 15px 0 15px 12px;
+  width: 98%;
+}
+
+.bc_surveys_header {
+  background-color: #f9f9fb;
+  font-weight: bold;
+  border: 1px solid #d9dadd;
+}
+
+.bc_cta_create {
+  margin-top: 5px;
+}
+
+.bc_survey_card_container {
+  box-shadow: 0 6px 12px 0px #d9dadd;
+}
+
+.bc_survey_grid{
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: 15px;
+}
+.bc_survey_grid_name{
+  grid-column: span 2;
+}
+
+.bc_grid_colums{
+  margin: auto;
+}
+.bc_survey_grid_acciones{
+  justify-items: end;
+}
