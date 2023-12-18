@@ -1,0 +1,126 @@
+<div class="maintable">
+  <mat-card class="mat-elevation-z8">
+
+    <div bc-card typeCard="image" class="encuesta bc-flex bc-justify-content-center bc-align-items-center">
+      <div bc-card typeCard="image">
+        <div class="bc-card-content">
+
+          <ng-container *ngIf="dataSource">
+
+            <section>
+              <h3>
+                {{dataSource.nombreEncuesta}}
+              </h3>
+              <p>
+                ¡Hola, <b>{{userName}} </b>!
+                Te recordamos que aún no has respondido la encuesta relacionada con el curso <b>{{userAsignacion}}</b>.
+                Tu opinión es fundamental para nosotros y nos gustaría conocer tus comentarios.
+                La encuesta consta de <b>{{dataSource.preguntas.length}} </b>
+                <span *ngIf="dataSource.preguntas.length === 1">pregunta</span>
+                <span *ngIf="dataSource.preguntas.length > 1">preguntas</span> y tu participación nos ayudará
+                a mejorar la calidad del curso.
+                ¡Agradecemos de antemano tu tiempo y contribución!
+              </p>
+            </section>
+
+            <hr>
+
+            <section class="survey_descripcion">
+              <p>
+                {{dataSource.descripcionEncuesta}}
+              </p>
+            </section>
+
+            <form [formGroup]="preguntasArray" >
+
+              <ng-container *ngFor="let question of preguntasArray.controls; let indexPregunta = index">
+                <section>
+
+                  <article>
+                    <p>
+                      <b>{{question.get('numeroPregunta').value}}.</b> {{question.get('nombrePregunta').value}}
+                    </p>
+                  </article>
+
+
+                  <ng-container *ngIf="question.get('tipoPregunta').value === 1">
+                    <article class="answer_options">
+
+                      <bc-radio-group [formControl]="question.get('respuestas')" >
+                        <ng-container *ngFor="let opcion of question.get('opcionPreguntas').value">
+
+                          <bc-radio [name]="indexPregunta" [value]="opcion.opcionPregunta">
+                            {{opcion.opcionPregunta}}
+                          </bc-radio>
+
+                        </ng-container>
+                      </bc-radio-group>
+
+                      </article>
+                  </ng-container>
+
+                  <ng-container *ngIf="question.get('tipoPregunta').value === 2">
+                    <article class="answer_options">
+
+                      <bc-checkbox-group [formControl]="question.get('respuestas')">
+                        <ng-container *ngFor="let opcion of question.get('opcionPreguntas').value">
+
+                          <bc-checkbox class="col-6"  [value]="opcion.opcionPregunta"
+                          label="{{opcion.opcionPregunta}}"></bc-checkbox>
+
+                        </ng-container>
+                        </bc-checkbox-group>
+
+
+                      </article>
+                  </ng-container>
+
+                  <ng-container *ngIf="question.get('tipoPregunta').value === 3">
+                    <article class="answer_text">
+
+                      <bc-form-field>
+                        <input bc-input type="text" id="abierta"  maxlength="150"
+                        [formControl]="question.get('respuestas')" />
+                        <label for="abirta">Escriba su respuesta...</label>
+                      </bc-form-field>
+
+                    </article>
+                  </ng-container>
+
+
+                  <ng-container *ngIf="question.get('tipoPregunta').value ===4 ">
+
+                    <article>
+                      <bc-radio-group [formControl]="question.get('respuestas')" >
+                        <div class="bc-radio-group bc_surve_range answer_options">
+
+                          <bc-radio [name]="indexPregunta" value="1">1</bc-radio>
+                          <bc-radio [name]="indexPregunta" value="2">2</bc-radio>
+                          <bc-radio [name]="indexPregunta" value="3">3</bc-radio>
+                          <bc-radio [name]="indexPregunta" value="4">4</bc-radio>
+                          <bc-radio [name]="indexPregunta" value="5">5</bc-radio>
+                        </div>
+
+                      </bc-radio-group>
+                    </article>
+
+                  </ng-container>
+
+                </section>
+              </ng-container>
+
+              <button (click)="saveAnswer()" type="submit" [disabled]="preguntasArray.invalid"
+              class="bc-button bc-button-primary bc-button-small ">
+                <bc-icon>ok</bc-icon>
+                <span>Responder</span>
+              </button>
+            </form>
+
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+</div>
