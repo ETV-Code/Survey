@@ -1,0 +1,138 @@
+<div class="bc-container">
+
+  <div class="bc-col-6 space-i">
+    <bc-search-content-items class="bc-col-12">
+      <bc-form-field class="bc-col-12">
+        <em><bc-icon name="filter" aria-hidden="true" aria-label="prueba"></bc-icon></em>
+        <input bc-input aria-label="custom-aria-label" type="text" value="" required id="00"
+          (keyup)="applyFilter($event.target.value)" [formControl]="filtroFormControl" />
+        <label for="526">Escriba el texto a buscar</label>
+      </bc-form-field>
+    </bc-search-content-items>
+  </div>
+
+</div>
+
+<div bc-card class="bc_survey_wrapper bc_surveys_header bc-flex bc-justify-content-center bc-align-items-center ">
+  <div class="bc-card-body">
+
+    <div class="bc_survey_grid">
+      <div class="bc_survey_grid_name">
+        <span> Nombre encuesta </span>
+      </div>
+      <div class="bc_grid_colums" >
+        <span> Tipo encuesta </span>
+      </div>
+      <div class="bc_grid_colums" >
+        <span> Estado </span>
+      </div>
+      <div class="bc_grid_colums" >
+        <span> Fecha creacion </span>
+      </div>
+      <div class="bc_grid_colums" >
+        <span> Fecha actualizacion </span>
+      </div>
+      <div class="bc_grid_colums" >
+        <span> Acciones </span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<ng-container *ngIf="currentPage.length==0">
+  <div bc-card
+    class="bc_survey_card_container bc_survey_wrapper bc-flex bc-justify-content-center bc-align-items-center  ">
+    <div class="bc-card-body">
+
+      <section class="bc-flex bc-direction-column bc-justify-content-center bc-align-items-center">
+
+        <span> No se a creado ninguna encuesta. </span>
+        <div class="bc_cta_create">
+          <button test_data="create_button" class="bc-button bc-button-primary bc-button-small "
+          (click)="onCreateSurveyClicked()" type="button"
+          >
+            <span>Crear encuesta</span>
+            <bc-icon>arrow-diagonal</bc-icon>
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="currentPage.length>0">
+  <ng-container *ngFor="let survey of currentPage">
+
+    <div bc-card class="bc_survey_wrapper bc-flex bc-justify-content-center bc-align-items-center">
+      <div class="bc-card-body">
+
+        <div class="bc_survey_grid">
+
+          <div class="bc_survey_grid_name">
+            <span> {{ survey.nombreEncuesta }} </span>
+          </div>
+
+          <div class="bc_grid_colums">
+            <span> {{ survey.tipoEncuesta }} </span>
+          </div>
+
+          <div class="bc_grid_colums">
+            <span *ngIf="survey.estado">
+              Activo
+            </span>
+            <span *ngIf="!survey.estado">
+              Inactivo
+            </span>
+          </div>
+
+          <div class="bc_grid_colums">
+            <span>
+              {{ survey.fechaCreacion}}
+            </span>
+          </div>
+
+          <div class="bc_grid_colums">
+            <span>
+              {{ survey.fechaActualizacion }}
+            </span>
+          </div>
+
+          <div class="bc-flex bc-align-items-center bc-justify-content-center ">
+            <div>
+              <button test_data="ver_button" class="bc-button-icon"
+                (click)="comportamientoAlertas('ver',survey)"
+              >
+                <i class="bc-icon bc-sm" bc-tooltip bcTooltipText="Ver" bcTooltipPosition="bottom">view</i>
+              </button>
+            </div>
+            <div>
+              <button test_data="delete_button" class="bc-button-icon"
+                (click)="comportamientoAlertas('eliminar',survey)"
+              >
+                <i class="bc-icon bc-sm" bc-tooltip bcTooltipText="Eliminar" bcTooltipPosition="bottom">error</i>
+              </button>
+            </div>
+            <div>
+              <button test_data="update_button" class="bc-button-icon" (click)="onUpdateSurvey(survey.idEncuesta)">
+                <i class="bc-icon bc-sm" bc-tooltip bcTooltipText="Editar" bcTooltipPosition="bottom">pencil-edit</i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>
+
+<div>
+  <bc-paginator [type]="'full'" [totalRegisters]="dataSource.length" [perPage]="perPage" [perMultiple]="perPage"
+    (onChangePage)="changePage($event)">
+  </bc-paginator>
+</div>
